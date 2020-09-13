@@ -1,7 +1,7 @@
 .PHONY: all build run clean shell cleangen
 all: build run clean
 
-IMAGE=fi/slide:v1
+IMAGE=fi/goslide-gen:v1
 
 build: *
 	docker build -f Dockerfile -t ${IMAGE} ..

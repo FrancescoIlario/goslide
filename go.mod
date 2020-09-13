@@ -1,4 +1,4 @@
-module github.com/FrancescoIlario/slide
+module github.com/FrancescoIlario/goslide
 
 go 1.15
 
