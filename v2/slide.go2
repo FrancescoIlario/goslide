@@ -1,0 +1,81 @@
+package slide
+
+// Cut removes a piece of the array
+func Cut[T any](s []T, i, j int) []T {
+	return append(s[:i], s[j:]...)
+}
+
+// Copy copies the provided array in a new one with the same capacity
+func Copy[T any](s []T) []T {
+	b := make([]T, len(s), cap(s))
+	copy(b, s)
+	return b
+}
+
+// CopyFit copies the provided array in a new one with capacity set as the length of the input one
+func CopyFit[T any](s []T) []T {
+	b := make([]T, len(s), len(s))
+	copy(b, s)
+	return b
+}
+
+// Delete removes an entry from the array
+func Delete[T any](s []T, i int) []T {
+	return append(s[:i], s[i+1:]...)
+}
+
+// DeleteWithoutOrder removes an entry from the array
+func DeleteWithoutOrder[T any](s []T, i int) []T {
+	lp := len(s) - 1
+	s[i] = s[lp]
+	return s[:lp]
+}
+
+// FilterInPlace filters the provided array using the the filter function
+func FilterInPlace[T any](s []T, filter func(int, T) bool) []T {
+	c := 0
+	for p, e := range s {
+		if filter(p, e) {
+			s[c] = e
+			c++
+		}
+	}
+	return s[:c]
+}
+
+// Filter filters the provided array using the the filter function
+func Filter[T any](s []T, filter func(int, T) bool) []T {
+	scp := CopyFit(s)
+	return FilterInPlace(scp, filter)
+}
+
+// PopLast pops the last element from the provided array
+func PopLast[T any](s []T) (T, []T) {
+	ep := len(s) - 1
+	return s[ep], s[:ep]
+}
+
+// PopFirst pops the first element from the provided array
+func PopFirst[T any](s []T) (T, []T) {
+	return s[0], s[1:]
+}
+
+// InsertAtPos inserts the i slide into the s one at the pos position
+func InsertAtPos[T any](s []T, pos int, i ...T) []T {
+	return append(append(s[pos:], i...), s[:pos]...)
+}
+
+// PushFront adds a new element in front of the slice
+func PushFront[T any](s []T, e ...T) []T {
+	return append(e, s...)
+}
+
+// Extend adds new entries (with default values) at the provided slice at given position
+func Extend[T any](s []T, pos, size int) []T {
+	return append(s[:pos], append(make([]T, size), s[pos:]...)...)
+}
+
+// ExtendEnd adds new entries (with default values) at the provided slice at the end
+func ExtendEnd[T any](s []T, size int) []T {
+	return append(s, make([]T, size)...)
+}

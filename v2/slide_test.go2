@@ -1,0 +1,17 @@
+package slide_test
+
+import (
+	"testing"
+
+	slide "github.com/FrancescoIlario/slide/v2"
+)
+
+func Test_CutInt(t *testing.T) {
+	provided, expected := []int{0, 1, 2, 3}, []int{0, 3}
+	obtained := slide.Cut(provided, 1, 3)
+	for idx, el := range expected {
+		if obtained[idx] != el {
+			t.Errorf("expected %v, obtained %v", expected, obtained)
+		}
+	}
+}
